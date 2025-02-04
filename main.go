@@ -1,21 +1,12 @@
 package main
 
 import (
+	"assigment/util"
 	"fmt"
-
-	"github.com/xuri/excelize/v2"
 )
 
-type User struct {
-    Username string
-    UserId string
-    Role string
-    Privileges string
-    Password string
-}
-
 func main() {
-	users, err := OpenFileAndReadUserData("user_data.xlsx", "Facility_Data")
+	users, err := util.OpenFileAndReadUserData("user_data.xlsx", "Facility_Data")
     if err != nil {
         fmt.Println(err)
     }
@@ -23,67 +14,3 @@ func main() {
     fmt.Println(users)
 }
 
-func OpenFileAndReadUserData(filename string, sheetname string) ([]User, error) {
-
-    f, err :=  OpenFile(filename)
-
-    if err != nil {
-        return nil, err
-    }
-
-    users, err := ReadData("Facility_Data", f)
-
-    if err != nil {
-        return nil, err
-    }
-
-    return users, nil
-}
-
-func OpenFile(filename string) (f *excelize.File, err error) {
-
-    // Create an instance of the reader by opening a target file
-    file, err := excelize.OpenFile(filename)
-    if err != nil {
-        fmt.Println(err)
-        return nil, err
-    }
-
-    defer func() {
-        // Close the spreadsheet.
-        if err := f.Close(); err != nil {
-            fmt.Println(err)
-        }
-    }()
-
-    return file, nil
-}
-
-func ReadData(sheetname string, f *excelize.File) ([]User, error) {
-
-    var users []User
-
-    // Get all the rows in the "sheetname".
-    rows, err := f.GetRows(sheetname)
-    if err != nil {
-        fmt.Println(err)
-        return nil, err
-    }
-    for i, row := range rows {
-        var user User
-        // Assuming first row is header
-        if i == 0 {
-            continue
-        } 
-        
-        user.Username = row[0]
-        user.UserId = row[1]
-        user.Role = row[2]
-        user.Privileges = row[3]
-        user.Password = row[4]
-
-        users = append(users, user)
-    }
-
-    return users, nil
-}
