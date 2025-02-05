@@ -3,14 +3,15 @@ package service
 import (
 	"assigment/dto"
 	"assigment/model"
+	"assigment/repo"
 	"strings"
 )
 
 type UserService struct {
-	userRepository model.UserRepository
+	userRepository repo.UserRepository
 }
 
-func NewUserService(userRepository model.UserRepository) *UserService {
+func NewUserService(userRepository repo.UserRepository) *UserService {
 	return &UserService{
 		userRepository: userRepository,
 	}

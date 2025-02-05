@@ -20,7 +20,3 @@ type UserCredentials struct {
 	UserId   int
 	Password string
 }
-
-type UserRepository interface {
-	SaveUsers(users []User) error
-}

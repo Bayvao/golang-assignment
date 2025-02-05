@@ -1,7 +1,7 @@
 package main
 
 import (
-	"assigment/model"
+	"assigment/repo"
 	"assigment/service"
 	"assigment/util"
 	"fmt"
@@ -15,7 +15,7 @@ func main() {
 
     dsn := "root:root@tcp(127.0.0.1:3306)/assignment?charset=utf8mb4&parseTime=True&loc=Local"
 
-    db, dbError := model.CreateConnection(dsn)
+    db, dbError := repo.CreateConnection(dsn)
 
     if dbError != nil {
         fmt.Printf("Failed to connect to Database: %v", dbError)

@@ -1,6 +1,7 @@
-package model
+package repo
 
 import (
+	"assigment/model"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -8,7 +9,7 @@ import (
 )
 
 type UserRepositoryImpl struct {
-	db *gorm.DB
+	repo *Implementation
 }
 
 
@@ -22,18 +23,18 @@ func CreateConnection(dsn string) (UserRepository, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&User{}, &UserCredentials{}, &UserPrivileges{})
+	err = db.AutoMigrate(&model.User{}, &model.UserCredentials{}, &model.UserPrivileges{})
 	if err != nil {
 		return nil, err
 	}
 
-	return &UserRepositoryImpl{db: db}, nil
+	return &UserRepositoryImpl{repo: NewImplementation(db)}, nil
 }
 
 // SaveUsers implements UserRepository.
-func (u *UserRepositoryImpl) SaveUsers(users []User) (error) {
+func (u *UserRepositoryImpl) SaveUsers(users []model.User) (error) {
 	for _, user := range users {
-		result := u.db.Create(&user)
+		result := u.repo.db.Create(&user)
 		if result.Error != nil {
 			fmt.Printf("Failed to save user %v: %v", user, result.Error)
 			return result.Error
