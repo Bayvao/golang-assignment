@@ -1,13 +1,13 @@
 package util
 
 import (
-	"assigment/model"
+	"assigment/dto"
 	"fmt"
 
 	"github.com/xuri/excelize/v2"
 )
 
-func OpenFileAndReadUserData(filename string, sheetname string) ([]model.User, error) {
+func OpenFileAndReadUserData(filename string, sheetname string) ([]dto.User, error) {
 
 	f, err := OpenFile(filename)
 
@@ -43,9 +43,9 @@ func OpenFile(filename string) (f *excelize.File, err error) {
 	return file, nil
 }
 
-func ReadData(sheetname string, f *excelize.File) ([]model.User, error) {
+func ReadData(sheetname string, f *excelize.File) ([]dto.User, error) {
 
-	var users []model.User
+	var users []dto.User
 
 	// Get all the rows in the "sheetname".
 	rows, err := f.GetRows(sheetname)
@@ -54,7 +54,7 @@ func ReadData(sheetname string, f *excelize.File) ([]model.User, error) {
 		return nil, err
 	}
 	for i, row := range rows {
-		var user model.User
+		var user dto.User
 		// Assuming first row is header
 		if i == 0 {
 			continue

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"assigment/model"
+	"assigment/service"
 	"assigment/util"
 	"fmt"
 )
@@ -11,6 +13,22 @@ func main() {
         fmt.Println(err)
     }
 
-    fmt.Println(users)
+    dsn := "root:root@tcp(127.0.0.1:3306)/assignment?charset=utf8mb4&parseTime=True&loc=Local"
+
+    db, dbError := model.CreateConnection(dsn)
+
+    if dbError != nil {
+        fmt.Printf("Failed to connect to Database: %v", dbError)
+    }
+
+    userService := service.NewUserService(db)
+
+    saveError := userService.SaveUsers(users)
+
+    if saveError != nil {
+        fmt.Printf("Failed to save users to database: %v", saveError)
+    }
+
+    fmt.Println("Users successfully saved to database!")
 }
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"assigment/model"
+	"assigment/dto"
 	"assigment/util"
 	"testing"
 )
@@ -17,7 +17,7 @@ func TestOpenFileAndReadData_Size(t *testing.T) {
 
 func TestOpenFileAndReadData_Data(t *testing.T) {
 
-	expected := []model.User {
+	expected := []dto.User {
 		{"John", "john@deloitte.com", "Admin", "Upload,View,Edit", "system123#"},
 		{"Benny", "benny@deloitte.com", "User", "Uplaod,View", "system123#"	}, 
 		{"Zack", "zack@deloitte.com", "User", "Uplaod,View", "system123#"},
