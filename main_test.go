@@ -18,9 +18,9 @@ func TestOpenFileAndReadData_Size(t *testing.T) {
 func TestOpenFileAndReadData_Data(t *testing.T) {
 
 	expected := []dto.User {
-		{"John", "john@deloitte.com", "Admin", "Upload,View,Edit", "system123#"},
-		{"Benny", "benny@deloitte.com", "User", "Uplaod,View", "system123#"	}, 
-		{"Zack", "zack@deloitte.com", "User", "Uplaod,View", "system123#"},
+		{Username: "John", UserId: "john@deloitte.com", Role: "Admin", Privileges: "Upload,View,Edit", Password: "system123#"},
+		{Username: "Benny", UserId: "benny@deloitte.com", Role: "User", Privileges: "Uplaod,View", Password: "system123#"	}, 
+		{Username: "Zack", UserId: "zack@deloitte.com", Role: "User", Privileges: "Uplaod,View", Password: "system123#"},
 	}
 	result, _ := util.OpenFileAndReadUserData("user_data.xlsx", "Facility_Data")
 
